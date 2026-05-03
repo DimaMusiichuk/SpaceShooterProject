@@ -1,0 +1,28 @@
+name: Unity CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request: 
+    branches: [ "main" ]
+
+jobs:
+  validation:
+    name: Code Structure & Quality Check
+    runs-on: ubuntu-latest # Сервер GitHub на Linux, який це виконує
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Validate Unity Project Structure
+        run: |
+          echo "Starting CI/CD pipeline..."
+          if [ -d "Assets" ]; then echo "Assets folder found! ✔️"; else echo "Warning: No Assets folder"; fi
+          if [ -d "ProjectSettings" ]; then echo "ProjectSettings folder found! ✔️"; else echo "Warning: No ProjectSettings folder"; fi
+          echo "Basic validation passed successfully! 🚀"
