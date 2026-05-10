@@ -38,7 +38,11 @@ public class GameManager : MonoBehaviour
     public void ProcessGameOverLogic()
     {
         int earnedCoins = currentScore / pointsPerCoin; 
-        
         Debug.Log($"Гра закінчена! Набрано очок: {currentScore}. Зароблено монет: {earnedCoins}");
+        
+        if (DatabaseService.Instance != null && earnedCoins > 0)
+        {
+            DatabaseService.Instance.AddCoinsAndSave(earnedCoins);
+        }
     }
 }

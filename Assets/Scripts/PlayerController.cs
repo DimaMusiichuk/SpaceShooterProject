@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,7 +48,16 @@ public class PlayerController : MonoBehaviour
             if (hp <= 0)
             {
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                Destroy(gameObject); 
+                
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.ProcessGameOverLogic();
+                }
+
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<Collider2D>().enabled = false;
+
+                Invoke("GoToMenu", 0.5f); 
             }
         }
     }
@@ -65,5 +75,10 @@ public class PlayerController : MonoBehaviour
             
             hpDisplay.text = hearts; 
         }
+    }
+
+    private void GoToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
