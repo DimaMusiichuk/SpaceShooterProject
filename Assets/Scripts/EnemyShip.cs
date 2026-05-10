@@ -50,6 +50,12 @@ public class EnemyShip : MonoBehaviour
             {
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             }
+
+            if (GameManager.Instance != null) 
+            {
+                GameManager.Instance.AddScore(150);
+            }
+            
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
