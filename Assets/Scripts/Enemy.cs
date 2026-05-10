@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
             {
                 GameManager.Instance.AddScore(50);
             }
+
+            Destroy(other.gameObject);
             
             Destroy(gameObject);
         }

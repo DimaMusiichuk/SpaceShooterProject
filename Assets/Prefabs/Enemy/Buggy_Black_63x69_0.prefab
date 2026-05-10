@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2345610582827387152}
   - component: {fileID: 3432392859171452849}
   - component: {fileID: 7351224949765964733}
+  - component: {fileID: -3155843148458945714}
   m_Layer: 0
   m_Name: Buggy_Black_63x69_0
   m_TagString: Untagged
@@ -229,3 +230,17 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6466554319353596263, guid: 833351c5e0874074f8b9f035c66101b2, type: 3}
   firePoint: {fileID: 6924898165060472420}
   leaveSpeed: 5
+--- !u!114 &-3155843148458945714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7805886116702663475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc66d1e77fd69704d9a53b05eb7ba1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  fallSpeed: 0
+  explosionPrefab: {fileID: 3364323215552837193, guid: aa886520f35386540b65404b103d00f9, type: 3}
