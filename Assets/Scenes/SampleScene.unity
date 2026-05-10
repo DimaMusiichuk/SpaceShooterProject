@@ -874,6 +874,7 @@ MonoBehaviour:
   hpDisplay: {fileID: 1372845125}
   bulletPrefab: {fileID: 350053365963917015, guid: ab0f5b18440aa134c9e25028861de148, type: 3}
   explosionPrefab: {fileID: 3364323215552837193, guid: aa886520f35386540b65404b103d00f9, type: 3}
+  premiumSkinSprite: {fileID: -8966170640920574684, guid: ed62f39b5f73faf41a5351c48a846e8d, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

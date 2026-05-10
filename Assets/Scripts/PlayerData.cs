@@ -4,4 +4,8 @@ using System.Collections.Generic;
 public class PlayerData
 {
     public int coins;
+
+    public int extraHealth;
+    public bool hasDoubleShot;
+    public bool hasPremiumSkin;
 }

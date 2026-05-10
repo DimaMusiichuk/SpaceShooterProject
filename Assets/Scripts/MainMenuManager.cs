@@ -7,9 +7,16 @@ public class MainMenuManager : MonoBehaviour
     [Header("UI відображення")]
     [SerializeField] private TextMeshProUGUI coinsText;
 
+    [SerializeField] private GameObject shopPanel;
+
     void Start()
     {
         UpdateCoinsDisplay();
+
+        if (shopPanel != null)
+        {
+            shopPanel.SetActive(false); 
+        }
     }
 
     public void UpdateCoinsDisplay()
@@ -28,12 +35,23 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenShop()
     {
-        Debug.Log("Відкриваємо меню магазину...");
+        if (shopPanel != null)
+        {
+            shopPanel.SetActive(true);
+        }
+    }
+
+    public void CloseShop()
+    {
+        if (shopPanel != null)
+        {
+            shopPanel.SetActive(false);
+        }
     }
 
     public void QuitGame()
     {
-        Debug.Log("Гра закрилася");
-        Application.Quit(); 
+        Debug.Log("Гра закрилася!");
+        Application.Quit();
     }
 }

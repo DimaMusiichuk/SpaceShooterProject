@@ -11,8 +11,33 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject explosionPrefab;
 
+    public Sprite premiumSkinSprite;
+
+    private bool hasDoubleShot = false;
+
     void Start()
     {
+        if (DatabaseService.Instance != null)
+        {
+            PlayerData data = DatabaseService.Instance.LoadData();
+
+            hp += data.extraHealth;
+
+            hasDoubleShot = data.hasDoubleShot;
+
+            if (data.hasPremiumSkin)
+            {
+                if (premiumSkinSprite != null)
+                {
+                    GetComponent<SpriteRenderer>().sprite = premiumSkinSprite;
+                }
+                else 
+                {
+                    GetComponent<SpriteRenderer>().color = Color.yellow; 
+                }
+            }
+        }
+
         UpdateHeartsUI();
     }
 
@@ -25,7 +50,15 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            if (hasDoubleShot)
+            {
+                Instantiate(bulletPrefab, transform.position + new Vector3(-0.3f, 0, 0), Quaternion.identity);
+                Instantiate(bulletPrefab, transform.position + new Vector3(0.3f, 0, 0), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -40,7 +73,6 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
         {
             hp = hp - 1; 
-            
             UpdateHeartsUI(); 
 
             Destroy(other.gameObject); 
@@ -67,12 +99,10 @@ public class PlayerController : MonoBehaviour
         if (hpDisplay != null)
         {
             string hearts = ""; 
-            
             for (int i = 0; i < hp; i++)
             {
                 hearts += "♥"; 
             }
-            
             hpDisplay.text = hearts; 
         }
     }

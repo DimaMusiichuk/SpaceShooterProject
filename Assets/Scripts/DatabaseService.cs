@@ -45,4 +45,11 @@ public class DatabaseService : MonoBehaviour
         
         Debug.Log($"<color=green>Прогрес збережено!</color> Всього монет: {data.coins}. Файл тут: {saveFilePath}");
     }
+
+    public void SaveData(PlayerData updatedData)
+    {
+        string json = JsonUtility.ToJson(updatedData, true); 
+        File.WriteAllText(saveFilePath, json);
+        Debug.Log("<color=yellow>Дані магазину успішно збережено!</color>");
+    }
 }
