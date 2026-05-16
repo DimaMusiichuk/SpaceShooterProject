@@ -9,7 +9,7 @@ on:
 jobs:
   validation:
     name: Code Structure & Quality Check
-    runs-on: ubuntu-latest # Сервер GitHub на Linux, який це виконує
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
