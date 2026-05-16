@@ -1,0 +1,36 @@
+name: Build Project 🚀
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  buildForWindows:
+    name: Build for Windows 🪟
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Library folder
+        uses: actions/cache@v4
+        with:
+          path: Library
+          key: Library-Windows-${{ hashFiles('ProjectSettings/ProjectVersion.txt') }}
+          restore-keys: |
+            Library-Windows-
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: StandaloneWindows64
+          unityVersion: 6000.0.4f1
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SpaceShooter-Windows-Build
+          path: build/StandaloneWindows64
