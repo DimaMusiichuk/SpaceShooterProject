@@ -13,7 +13,8 @@ public class EnemyShooterFSM : MonoBehaviour
     [SerializeField] private float fireRate = 2f; 
     [SerializeField] private float timeToShoot = 3f;
     [SerializeField] private GameObject bulletPrefab; 
-    [SerializeField] private Transform firePoint; 
+    
+    [SerializeField] private Transform[] firePoints; 
 
     [Header("Налаштування стану: Leaving")]
     [SerializeField] private float leaveSpeed = 5f;
@@ -57,9 +58,15 @@ public class EnemyShooterFSM : MonoBehaviour
         
         while (currentState == EnemyState.Shooting && currentShootTime < timeToShoot)
         {
-            if (bulletPrefab && firePoint)
+            if (bulletPrefab && firePoints != null)
             {
-                Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+                foreach (Transform fp in firePoints)
+                {
+                    if (fp != null)
+                    {
+                        Instantiate(bulletPrefab, fp.position, Quaternion.identity);
+                    }
+                }
             }
             
             yield return new WaitForSeconds(1f / fireRate);
