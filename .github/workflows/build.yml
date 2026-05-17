@@ -37,3 +37,15 @@ jobs:
         with:
           name: SpaceShooter-Windows-Build
           path: build/StandaloneWindows64
+
+      - name: Zip Build
+        run: zip -r SpaceShooter.zip build/StandaloneWindows64
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "SpaceShooter.zip"
+          tag: "latest"
+          name: "Latest Release"
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
