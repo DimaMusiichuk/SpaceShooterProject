@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip hitSound;
     [SerializeField] private AudioClip explosionSound;
     
+    [Header("Межі екрану")]
+    public float minX = -8f; 
+    public float maxX = 8f;  
+    public float minY = -4f; 
+    public float maxY = 4f;  
+
     private AudioSource audioSource;
     public float speed = 7;
     public int hp = 3;
@@ -56,6 +62,11 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveX, moveY, 0);
         transform.Translate(movement * speed * Time.deltaTime);
+
+        // ОБМЕЖЕННЯ РУХУ (Clamp) - тримаємо корабель у кадрі
+        float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
+        float clampedY = Mathf.Clamp(transform.position.y, minY, maxY);
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
