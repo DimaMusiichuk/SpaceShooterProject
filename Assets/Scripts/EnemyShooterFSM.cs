@@ -13,14 +13,22 @@ public class EnemyShooterFSM : MonoBehaviour
     [SerializeField] private float fireRate = 2f; 
     [SerializeField] private float timeToShoot = 3f;
     [SerializeField] private GameObject bulletPrefab; 
-    
     [SerializeField] private Transform[] firePoints; 
 
     [Header("Налаштування стану: Leaving")]
     [SerializeField] private float leaveSpeed = 5f;
 
+    [Header("Аудіо")]
+    [SerializeField] private AudioClip shootSound;
+    private AudioSource audioSource;
+
     private EnemyState currentState = EnemyState.MovingToPosition;
     private bool isShootingCoroutineRunning = false;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -60,12 +68,20 @@ public class EnemyShooterFSM : MonoBehaviour
         {
             if (bulletPrefab && firePoints != null)
             {
+                bool shotFired = false;
+
                 foreach (Transform fp in firePoints)
                 {
                     if (fp != null)
                     {
                         Instantiate(bulletPrefab, fp.position, Quaternion.identity);
+                        shotFired = true;
                     }
+                }
+
+                if (shotFired && shootSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(shootSound);
                 }
             }
             

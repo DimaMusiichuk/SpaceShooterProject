@@ -3,8 +3,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float fallSpeed = 3;
-    
     public GameObject explosionPrefab;
+
+    [Header("Аудіо")]
+    public AudioClip explosionSound;
 
     void Update()
     {
@@ -20,6 +22,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
+            if (explosionSound != null)
+            {
+                AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+            }
+
             if (explosionPrefab != null)
             {
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
@@ -31,7 +38,6 @@ public class Enemy : MonoBehaviour
             }
 
             Destroy(other.gameObject);
-            
             Destroy(gameObject);
         }
     }

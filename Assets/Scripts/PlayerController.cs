@@ -4,6 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("Аудіо")]
+    [SerializeField] private AudioClip shootSound;
+    [SerializeField] private AudioClip hitSound;
+    [SerializeField] private AudioClip explosionSound;
+    
+    private AudioSource audioSource;
     public float speed = 7;
     public int hp = 3;
 
@@ -17,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (DatabaseService.Instance != null)
         {
             PlayerData data = DatabaseService.Instance.LoadData();
@@ -59,6 +68,11 @@ public class PlayerController : MonoBehaviour
             {
                 Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             }
+            
+            if (shootSound != null && audioSource != null) 
+            {
+                audioSource.PlayOneShot(shootSound);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -77,8 +91,20 @@ public class PlayerController : MonoBehaviour
 
             Destroy(other.gameObject); 
 
-            if (hp <= 0)
+            if (hp > 0)
             {
+                if (hitSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(hitSound);
+                }
+            }
+            else if (hp <= 0)
+            {
+                if (explosionSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+                }
+
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 
                 if (GameManager.Instance != null)

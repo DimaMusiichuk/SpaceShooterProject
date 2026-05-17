@@ -14,10 +14,17 @@ public class EnemyShip : MonoBehaviour
     public GameObject explosionPrefab;
     private float startX;
 
+    [Header("Аудіо")]
+    public AudioClip shootSound;
+    public AudioClip explosionSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         startX = transform.position.x;
         nextFireTime = Time.time + Random.Range(0, fireRate);
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -32,6 +39,12 @@ public class EnemyShip : MonoBehaviour
             if (bulletPrefab != null && shootPoint != null)
             {
                 Instantiate(bulletPrefab, shootPoint.position, Quaternion.Euler(0, 0, 180));
+                
+                // Звук пострілу
+                if (shootSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(shootSound);
+                }
             }
             nextFireTime = Time.time + fireRate;
         }
@@ -46,6 +59,12 @@ public class EnemyShip : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
+            // Звук вибуху
+            if (explosionSound != null)
+            {
+                AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+            }
+
             if (explosionPrefab != null)
             {
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
