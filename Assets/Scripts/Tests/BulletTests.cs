@@ -23,8 +23,8 @@ public class BulletTests
     [Test]
     public void Bullet_DefaultValues_AreSetCorrectly()
     {
-        Assert.AreEqual(12f, bullet.speed, "Стандартна швидкість кулі має бути 12.");
-        Assert.AreEqual(3f, bullet.lifetime, "Стандартний час життя кулі має бути 3 секунди.");
+        Assert.AreEqual(12f, bullet.speed, "Стандартна швидкість кулі має бути 12");
+        Assert.AreEqual(3f, bullet.lifetime, "Стандартний час життя кулі має бути 3 секунди");
     }
 
     [Test]
@@ -33,7 +33,7 @@ public class BulletTests
         CallPrivateMethod(bullet, "Start");
 
         Assert.AreEqual(90f, bulletObj.transform.rotation.eulerAngles.z, 0.01f, 
-            "При старті куля повинна повернутися на 90 градусів (щоб летіти носом уперед).");
+            "При старті куля повинна повернутися на 90 градусів");
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class BulletTests
         CallPrivateMethod(bullet, "Update");
 
         Assert.Greater(bulletObj.transform.position.y, 0f, 
-            "Куля повинна рухатися вгору (Vector3.up) під час виклику Update.");
+            "Куля повинна рухатися вгору під час виклику Update");
     }
 
     private void CallPrivateMethod(object target, string methodName)

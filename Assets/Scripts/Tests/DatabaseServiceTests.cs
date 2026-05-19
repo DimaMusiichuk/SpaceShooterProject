@@ -12,7 +12,7 @@ public class DatabaseServiceTests
     [SetUp]
     public void Setup()
     {
-        dbObj = new GameObject("DatabaseService");
+        dbObj = new GameObject("DatabaseService");  
         dbService = dbObj.AddComponent<DatabaseService>();
         
         CallPrivateMethod(dbService, "Awake");
@@ -41,8 +41,8 @@ public class DatabaseServiceTests
     [Test]
     public void Awake_SetsSingletonInstance()
     {
-        Assert.IsNotNull(DatabaseService.Instance, "Синглтон бази даних має успішно ініціалізуватися.");
-        Assert.AreEqual(dbService, DatabaseService.Instance, "Змінна Instance має вказувати на поточний скрипт.");
+        Assert.IsNotNull(DatabaseService.Instance, "Синглтон бази даних має успішно ініціалізуватися");
+        Assert.AreEqual(dbService, DatabaseService.Instance, "Змінна Instance має вказувати на поточний скрипт");
     }
 
     [Test]
@@ -50,8 +50,8 @@ public class DatabaseServiceTests
     {
         PlayerData data = dbService.LoadData();
 
-        Assert.AreEqual(0, data.coins, "Якщо файлу немає, гравцю має видаватися 0 монет.");
-        Assert.IsFalse(data.hasDoubleShot, "Без збережень подвійний постріл має бути вимкнений.");
+        Assert.AreEqual(0, data.coins, "Якщо файлу немає, гравцю має видаватися 0 монет");
+        Assert.IsFalse(data.hasDoubleShot, "Без збережень подвійний постріл має бути вимкнений");
     }
 
     [Test]
@@ -64,8 +64,8 @@ public class DatabaseServiceTests
         dbService.SaveData(testData);
         PlayerData loadedData = dbService.LoadData();
 
-        Assert.AreEqual(999, loadedData.coins, "Кількість монет має коректно зберігатися у файл.");
-        Assert.IsTrue(loadedData.hasPremiumSkin, "Куплені скіни мають зберігатися.");
+        Assert.AreEqual(999, loadedData.coins, "Кількість монет має коректно зберігатися у файл");
+        Assert.IsTrue(loadedData.hasPremiumSkin, "Куплені скіни мають зберігатися");
     }
 
     [Test]
@@ -77,7 +77,7 @@ public class DatabaseServiceTests
         dbService.AddCoinsAndSave(50);
         PlayerData loadedData = dbService.LoadData();
 
-        Assert.AreEqual(60, loadedData.coins, "Метод AddCoinsAndSave має додавати монети до вже існуючих.");
+        Assert.AreEqual(60, loadedData.coins, "Метод AddCoinsAndSave має додавати монети до вже існуючих");
     }
 
 

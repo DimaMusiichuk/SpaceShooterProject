@@ -45,7 +45,7 @@ public class BackgroundChainManagerTests
         CallPrivateMethod(manager, "Start");
 
         Assert.Greater(bg2.transform.position.y, bg1.transform.position.y, 
-            "Другий елемент ланцюга має бути розташований вище за перший.");
+            "Другий елемент ланцюга має бути розташований вище за перший");
 
         Object.DestroyImmediate(bg1);
         Object.DestroyImmediate(bg2);
