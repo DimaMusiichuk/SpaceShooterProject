@@ -1,4 +1,4 @@
 ﻿<Solution>
-  <Project Path="MainGameAssembly.csproj" />
   <Project Path="Tests.csproj" />
+  <Project Path="MainGameAssembly.csproj" />
 </Solution>
